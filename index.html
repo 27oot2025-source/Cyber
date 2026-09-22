@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НЕОН-ГРАД 2099 :: СВОБОДНЫЙ АРХИВ</title>
+<meta name="description" content="Неон-Град 2099 — интерактивный киберпанк-архив в эстетике 1990-х: город, корпорации, банды, кибернетика, Глубокий Нет, ИИ ХОР и его собственный лор.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+/* search dropdown (inline, tied to header) */
+.searchwrap{position:relative}
+#search{width:220px;max-width:44vw}
+#searchResults{position:absolute;top:100%;left:0;right:0;z-index:60;background:#02030a;border:1px solid var(--neon);box-shadow:0 0 18px rgba(0,255,156,.35);max-height:340px;overflow-y:auto}
+.sr-item{padding:8px 10px;border-bottom:1px dotted #1c2530;cursor:pointer;font-size:13px}
+.sr-item:hover{background:var(--neon);color:#001b12}
+.sr-item:hover .sr-snip{color:#003}
+.sr-snip{color:var(--dim)}
+.hdr-btn{font-family:var(--mono);background:transparent;border:1px solid var(--dim);color:var(--dim);padding:5px 9px;cursor:pointer;font-size:12px}
+.hdr-btn:hover{border-color:var(--neon);color:var(--neon)}
+</style>
+</head>
+<body>
+
+<!-- CRT overlays -->
+<div class="crt-scanlines"></div>
+<div class="crt-flicker"></div>
+<div class="crt-vignette"></div>
+
+<!-- BOOT -->
+<div id="boot"><pre id="bootText"></pre></div>
+
+<!-- HEADER -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">НЕОН<b>·</b>ГРАД <span style="font-size:12px;color:var(--dim)">v2099</span></div>
+    <div class="searchwrap">
+      <input type="text" id="search" placeholder="/ поиск по архиву..." autocomplete="off" spellcheck="false">
+      <div id="searchResults" class="hidden"></div>
+    </div>
+    <div class="status-strip">
+      <span id="clock"><b>--:--:--</b></span>
+      <span>СМОГ: <b class="blink-dot">●</b> КРАСНЫЙ</span>
+      <span>ДОСТУП: <b>ГОСТЬ</b></span>
+    </div>
+    <button class="hdr-btn" id="crtToggle" title="Вкл/выкл CRT-эффекты (C)">CRT</button>
+    <button class="hdr-btn" id="helpBtn" title="Справка (?)">?</button>
+  </div>
+  <div class="ticker" id="ticker"><div class="track"></div></div>
+  <div class="wrap" style="padding-bottom:0">
+    <nav class="tabs" id="tabs"></nav>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="wrap">
+  <main id="main"></main>
+  <footer>
+    <p>▚ <b>СВОБОДНЫЙ ГОРОДСКОЙ АРХИВ НЕОН-ГРАДА</b> · СЕАНС АНОНИМЕН · ДАННЫЕ ХОТЯТ БЫТЬ СВОБОДНЫМИ ▚</p>
+    <p class="mini">Художественный вымысел в эстетике киберпанка 1980–90-х. Все корпорации, персонажи и события выдуманы.<br>Построено на чистом HTML / CSS / JS · без слежки · без корпораций · СЛАВА ПОДПОЛЬЮ</p>
+  </footer>
+</div>
+
+<script src="js/lore.js"></script>
+<script src="js/widgets.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
