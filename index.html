@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="neon">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ГОССЕТЬ-84 // ТЕРМИНАЛ ГОСУДАРСТВЕННОЙ СЕТИ</title>
+<meta name="description" content="ГОССЕТЬ-84 — терминал государственной информационной сети. Осторожно, неон!">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305060f'/%3E%3Crect x='3' y='3' width='26' height='26' fill='none' stroke='%2300f0ff' stroke-width='2'/%3E%3Cpath d='M10 24 V8 h12 v4 h-8 v12 z' fill='%23ff2bd6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══════════════ ПЛЁНКА ЗАГРУЗКИ ══════════════ -->
+<div id="boot" aria-hidden="true">
+  <div class="boot-inner">
+    <div id="boot-log" class="boot-log"></div>
+    <div id="boot-skip" class="boot-skip is-hidden">&gt;&gt; НАЖМИТЕ ЛЮБУЮ КЛАВИШУ ДЛЯ ВХОДА &lt;&lt;</div>
+  </div>
+</div>
+
+<!-- ══════════════ ЭКРАН ЭЛТ ══════════════ -->
+<div id="crt" class="is-off">
+  <div class="screen">
+
+    <!-- ШАПКА -->
+    <header id="hdr">
+      <div class="hdr-row">
+        <div class="logo glitchable" id="logo" data-text="ГОССЕТЬ-84">ГОССЕТЬ-84</div>
+        <div class="hdr-sub">ГОСУДАРСТВЕННАЯ ИНФОРМАЦИОННАЯ СЕТЬ &nbsp;//&nbsp; ТЕРМИНАЛ № 27-А &nbsp;//&nbsp; ДОПУСК: ГРАЖДАНСКИЙ</div>
+        <div class="hdr-widgets">
+          <button class="wbtn" id="btn-sound" title="Звук интерфейса">ЗВУК: ВКЛ</button>
+          <button class="wbtn" id="btn-cart" title="Корзина requisition-заявок">КОРЗИНА [<span id="cart-count">0</span>]</button>
+          <button class="wbtn" id="btn-settings" title="Настройки терминала">{ НАСТРОЙКИ }</button>
+        </div>
+      </div>
+      <nav id="nav" aria-label="Разделы сети">
+        <button class="tab active" data-view="home">ГЛАВНАЯ</button>
+        <button class="tab" data-view="news">ЛЕНТА</button>
+        <button class="tab" data-view="dossier">ДОСЬЕ</button>
+        <button class="tab" data-view="radio">ВОЛНЫ</button>
+        <button class="tab" data-view="arcade">АРКАДА</button>
+        <button class="tab" data-view="terminal">ТЕРМИНАЛ</button>
+        <button class="tab" data-view="shop">МАГАЗИН</button>
+        <button class="tab" data-view="comms">СВЯЗЬ</button>
+      </nav>
+      <div id="ticker" aria-hidden="true"><div class="ticker-track" id="ticker-track"></div></div>
+    </header>
+
+    <!-- ОСНОВНАЯ ОБЛАСТЬ -->
+    <main id="main">
+
+      <!-- ════ ВКЛАДКА: ГЛАВНАЯ ════ -->
+      <section class="view active" id="view-home">
+        <div class="home-hero">
+          <canvas id="horizon" width="960" height="420" aria-hidden="true"></canvas>
+          <div class="home-hero-text">
+            <div class="hero-kicker">СИСТЕМА В СЕТИ &nbsp;▸&nbsp; 27.10.1984</div>
+            <h1 class="hero-title glitchable" data-text="ГОССЕТЬ">ГОССЕТЬ</h1>
+            <div class="hero-sub" id="hero-sub"></div>
+            <div class="hero-actions">
+              <button class="btn big" data-goto="terminal">&gt;_ ОТКРЫТЬ ТЕРМИНАЛ</button>
+              <button class="btn big alt" data-goto="radio">▸ ВКЛЮЧИТЬ ЭФИР</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid cols-3">
+          <div class="panel" data-label="СИСТЕМНОЕ ОБЪЯВЛЕНИЕ">
+            <p class="mt0">Внимание, граждане сети. Ночной лимит трафика увеличен до <b>64 килобайт</b>. Благодарим за бдительность.</p>
+            <p>Не забывайте: терминал, который мигает без причины, — не друг вам, а аппаратная неисправность. Сообщайте дежурному.</p>
+            <p class="dim mb0">— Министерство Цифрового Просвещения</p>
+          </div>
+          <div class="panel" data-label="ПОКАЗАТЕЛИ СЕТИ">
+            <div class="stat"><span class="stat-num" data-count="65536">0</span><span class="stat-cap">ТЕРМИНАЛОВ В СЕТИ</span></div>
+            <div class="stat"><span class="stat-num" data-count="1200" data-suffix=" БОД">0</span><span class="stat-cap">СКОРОСТЬ ЛИНИИ</span></div>
+            <div class="stat"><span class="stat-num" data-count="99" data-suffix="%">0</span><span class="stat-cap">ОДОБРЕНИЕ ЦК</span></div>
+            <div class="stat mb0"><span class="stat-num" data-count="2048">0</span><span class="stat-cap">ДРОИДОВ НА ЛИНИИ</span></div>
+          </div>
+          <div class="panel" data-label="СОВЕТ КОНТРОЛЁРА">
+            <div class="quote-mark">«</div>
+            <p id="daily-quote" class="quote"></p>
+            <button class="btn small" id="btn-quote">↻ ЕЩЁ СОВЕТ</button>
+          </div>
+        </div>
+
+        <div class="grid cols-2">
+          <div class="panel" data-label="ОПРОС НЕДЕЛИ">
+            <p class="mt0">КАКОЙ ТРАНСПОРТ БУДУЩЕГО ВЫБИРЕТЕ ВЫ?</p>
+            <div id="poll"></div>
+          </div>
+          <div class="panel" data-label="ОТКРЫТКА ИЗ СЕКТОРА 7">
+            <figure class="postcard">
+              <img id="postcard-img" src="assets/city.jpg" alt="Неоновый город сектора 7" onerror="this.closest('.postcard').classList.add('noimg')">
+              <figcaption class="postcard-fb">[ ИЗОБРАЖЕНИЕ УТРЯЧЕНО АРХИВОМ — НАСЛАЖДАЙТесь ПАМЯТЬЮ ]</figcaption>
+              <figcaption class="postcard-cap">ПРОСПЕКТ ЛЕНИНСКИХ КОМСОМОЛЬЦЕВ, НОВАЯ ПЛАЩЁНИЦА. ВИД С АЭРОТАКСИ.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ ВКЛАДКА: ЛЕНТА ════ -->
+      <section class="view" id="view-news">
+        <div class="view-head">
+          <h2 class="glitchable" data-text="ЛЕНТА СОБЫТИЙ">ЛЕНТА СОБЫТИЙ</h2>
+          <div class="view-note">ОФИЦИАЛЬНЫЙ БЮЛЛЕТЕНЬ СЕТИ // ОБНОВЛЯЕТСЯ КАЖДЫЕ 6 ЧАСОВ</div>
+        </div>
+        <div class="news-layout">
+          <div id="news-list" class="news-list"></div>
+          <article id="news-reader" class="panel news-reader" data-label="ПОЛНЫЙ ТЕКСТ">
+            <div class="news-empty">◄ ВЫБЕРИТЕ СООБЩЕНИЕ ИЗ СПИСКА</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ════ ВКЛАДКА: ДОСЬЕ ════ -->
+      <section class="view" id="view-dossier">
+        <div class="view-head">
+          <h2 class="glitchable" data-text="КАРТОТЕКА ГРАЖДАН">КАРТОТЕКА ГРАЖДАН</h2>
+          <div class="view-note">ДОСТУП УРОВНЯ «ГРАЖДАНСКИЙ» // ЧАСТЬ ЗАПИСЕЙ СКРЫТА</div>
+        </div>
+        <div class="dossier-controls panel" data-label="ПАРАМЕТРЫ ПОИСКА">
+          <input id="dossier-q" class="field" type="text" placeholder="ПОЗЫВНОЙ, СЕКТОР, ПРИМЕТЫ..." autocomplete="off">
+          <select id="dossier-f" class="field">
+            <option value="">СТАТУС: ВСЕ</option>
+            <option value="В РОЗЫСКЕ">В РОЗЫСКЕ</option>
+            <option value="НАБЛЮДЕНИЕ">НАБЛЮДЕНИЕ</option>
+            <option value="ЛОЯЛЕН">ЛОЯЛЕН</option>
+            <option value="ДРОИД">ДРОИД</option>
+          </select>
+          <button class="btn" id="dossier-go">▸ ЗАПРОС</button>
+        </div>
+        <div class="dossier-layout">
+          <div id="dossier-list" class="dossier-list"></div>
+          <div id="dossier-card" class="panel dossier-card" data-label="ЛИЧНОЕ ДЕЛО">
+            <div class="news-empty">◄ УКАЖИТЕ СУБЪЕКТА ДЛЯ ПРОСМОТРА ДЕЛА</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ ВКЛАДКА: ВОЛНЫ ════ -->
+      <section class="view" id="view-radio">
+        <div class="view-head">
+          <h2 class="glitchable" data-text="ГОСУДАРСТВЕННОЕ РАДИО">ГОСУДАРСТВЕННОЕ РАДИО</h2>
+          <div class="view-note">ЧАСТОТА 84.0 МГЦ // ЧИСТЫЙ СИНТЕЗ, БЕЗ РЕКЛАМЫ И СМЫСЛА</div>
+        </div>
+        <div class="radio-layout">
+          <div class="panel radio-deck" data-label="ПРИЁМНИК «ВОЛНА-84»">
+            <div class="radio-display">
+              <div class="radio-track-num" id="radio-num">01</div>
+              <div class="radio-meta">
+                <div class="radio-title" id="radio-title">— ЭФИР НЕ НАСТРОЕН —</div>
+                <div class="radio-composer" id="radio-composer">ВЫБЕРИТЕ ЧАСТОТУ</div>
+                <div class="radio-progress"><div id="radio-bar"></div></div>
+              </div>
+              <canvas id="eq" width="220" height="96"></canvas>
+            </div>
+            <div class="radio-controls">
+              <button class="btn" id="radio-prev">|◄</button>
+              <button class="btn big" id="radio-play">▸ В ЭФИР</button>
+              <button class="btn" id="radio-next">►|</button>
+              <label class="vol">ГРОМК. <input type="range" id="radio-vol" min="0" max="100" value="60"></label>
+            </div>
+            <div class="radio-hint">СИНТЕЗ ВЫПОЛНЯЕТСЯ БОРТОВЫМ ПРОЦЕССОРОМ В РЕАЛЬНОМ ВРЕМЕНИ</div>
+          </div>
+          <div class="panel" data-label="ПРОГРАММА ПЕРЕДАЧ" id="tracklist"></div>
+        </div>
+      </section>
+
+      <!-- ════ ВКЛАДКА: АРКАДА ════ -->
+      <section class="view" id="view-arcade">
+        <div class="view-head">
+          <h2 class="glitchable" data-text="ЗАЛ ИГРОВЫХ АВТОМАТОВ">ЗАЛ ИГРОВЫХ АВТОМАТОВ</h2>
+          <div class="view-note">ЖЕТОНЫ НЕ ТРЕБУЮТСЯ // ГОСУДАРСТВО УЖЕ ЗАПЛАТИЛО</div>
+        </div>
+        <div class="arcade-layout">
+          <div class="panel snake-panel" data-label="АВТОМАТ «ЗМЕЙКА-84»">
+            <div class="snake-top">
+              <div>СЧЁТ: <b id="snake-score">0</b></div>
+              <div>РЕКОРД: <b id="snake-hi">0</b></div>
+              <div>ТЕМП: <b id="snake-speed">1</b></div>
+            </div>
+            <div class="snake-wrap">
+              <canvas id="snake" width="480" height="320"></canvas>
+              <div id="snake-overlay" class="snake-overlay">
+                <div class="so-title">ЗМЕЙКА-84</div>
+                <div class="so-sub">СТРЕЛКИ / WASD — ДВИЖЕНИЕ<br>ПРОБЕЛ — ПАУЗА</div>
+                <button class="btn big" id="snake-start">▸ СТАРТ</button>
+              </div>
+            </div>
+            <div class="snake-pad">
+              <button class="btn small" data-dir="up">▲</button>
+              <div>
+                <button class="btn small" data-dir="left">◄</button>
+                <button class="btn small" data-dir="down">▼</button>
+                <button class="btn small" data-dir="right">►</button>
+              </div>
+            </div>
+          </div>
+          <div class="panel" data-label="ПРОВЕРКА РЕФЛЕКСОВ">
+            <p class="mt0">Аттестация реакции для работы с дроидами, категория «В».</p>
+            <div id="react-pad" class="react-pad">НАЖМИТЕ, ЧТОБЫ НАЧАТЬ</div>
+            <div class="react-stats">
+              <div>ПОСЛЕДНЯЯ: <b id="react-last">—</b></div>
+              <div>ЛУЧШАЯ: <b id="react-best">—</b></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ ВКЛАДКА: ТЕРМИНАЛ ════ -->
+      <section class="view" id="view-terminal">
+        <div class="panel term-panel" data-label="КОМАНДНАЯ СТРОКА ГОССЕТИ">
+          <div id="term-out" class="term-out"></div>
+          <div class="term-line">
+            <span class="term-prompt">ГС:СЕТЬ\&gt;</span>
+            <input id="term-in" class="term-in" type="text" autocomplete="off" spellcheck="false" aria-label="Командная строка">
+          </div>
+          <div class="term-help">ВВЕДИТЕ «помощь» ДЛЯ СПИСКА КОМАНД // ↑/↓ — ИСТОРИЯ</div>
+        </div>
+      </section>
+
+      <!-- ════ ВКЛАДКА: МАГАЗИН ════ -->
+      <section class="view" id="view-shop">
+        <div class="view-head">
+          <h2 class="glitchable" data-text="УНИВЕРМАГ «ГАММА»">УНИВЕРМАГ «ГАММА»</h2>
+          <div class="view-note">РАСПРЕДЕЛИТЕЛЬНЫЙ ЦЕНТР № 9 // РАСЧЁТ В КРЕДИТКАХ</div>
+        </div>
+        <div id="shop-grid" class="shop-grid"></div>
+      </section>
+
+      <!-- ════ ВКЛАДКА: СВЯЗЬ ════ -->
+      <section class="view" id="view-comms">
+        <div class="view-head">
+          <h2 class="glitchable" data-text="УЗЕЛ СВЯЗИ">УЗЕЛ СВЯЗИ</h2>
+          <div class="view-note">ТЕЛЕГРАММЫ ОБРАБАТЫВАЮТСЯ ДРОИДОМ-ДЕЖУРНЫМ «КТ-1»</div>
+        </div>
+        <div class="comms-layout">
+          <div class="panel" data-label="ОТПРАВИТЬ ТЕЛЕГРАММУ В СЕТЬ">
+            <form id="msg-form">
+              <label class="lbl">ИМЯ (МОЖНО ВЫМЫШЛЕННОЕ)</label>
+              <input class="field" id="msg-name" maxlength="24" required placeholder="НАПР.: ТОВАРИЩ СИГНАЛ">
+              <label class="lbl">ПОЗЫВНОЙ / КАНАЛ</label>
+              <input class="field" id="msg-chan" maxlength="24" placeholder="НАПР.: ЛУЧ-7">
+              <label class="lbl">ТЕКСТ ТЕЛЕГРАММЫ</label>
+              <textarea class="field" id="msg-text" rows="4" maxlength="220" required placeholder="ЗАГЛАВНЫМИ БУКВАМИ, КАК ПРИНЯТО В ТЕЛЕГРАФЕ..."></textarea>
+              <button class="btn big" type="submit">▸ ПЕРЕДАТЬ В ЭФИР</button>
+            </form>
+          </div>
+          <div class="panel" data-label="ПРИНЯТЫЕ ТЕЛЕГРАММЫ">
+            <div id="msg-list" class="msg-list"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- СТАТУС-СТРОКА -->
+    <footer id="status">
+      <div class="st-msg" id="status-msg">СВЯЗЬ С ГОРОДОМ: СТАБИЛЬНАЯ</div>
+      <div class="st-mid">СБОРКА 27.10.84 // ИНСТИТУТ КИБЕРНЕТИКИ АН</div>
+      <div class="st-clock" id="clock">МОСКВА --:--:-- // 1984</div>
+    </footer>
+
+    <!-- ЭФФЕКТЫ ПОВЕРХ ЭКРАНА -->
+    <div id="ov-scan" aria-hidden="true"></div>
+    <div id="ov-vignette" aria-hidden="true"></div>
+    <div id="ov-glass" aria-hidden="true"></div>
+    <div id="ov-flicker" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- МОДАЛКИ -->
+<div id="modal-settings" class="modal is-hidden" role="dialog" aria-label="Настройки терминала">
+  <div class="modal-box panel" data-label="НАСТРОЙКИ ТЕРМИНАЛА">
+    <div class="set-row"><span>ЦВЕТОВАЯ СХЕМА</span>
+      <div class="set-opts" id="set-theme">
+        <button class="btn small" data-th="neon">НЕОН</button>
+        <button class="btn small" data-th="phosphor">ФОСФОР</button>
+        <button class="btn small" data-th="amber">ЯНТАРЬ</button>
+        <button class="btn small" data-th="alisa">АЛИСА</button>
+      </div>
+    </div>
+    <div class="set-row"><span>СКАНЛАЙНЫ ЭЛТ</span><button class="btn small toggle" data-set="scan">ВКЛ</button></div>
+    <div class="set-row"><span>МЕРЦАНИЕ ЭКРАНА</span><button class="btn small toggle" data-set="flicker">ВКЛ</button></div>
+    <div class="set-row"><span>RGB-РАССЛОЕНИЕ</span><button class="btn small toggle" data-set="rgb">ВКЛ</button></div>
+    <div class="set-row"><span>ЗВУКИ ИНТЕРФЕЙСА</span><button class="btn small toggle" data-set="sfx">ВКЛ</button></div>
+    <div class="set-row"><span>ГРОМКОСТЬ СИСТЕМЫ</span><input type="range" id="set-vol" min="0" max="100" value="70"></div>
+    <div class="set-row"><span>ДАННЫЕ ТЕРМИНАЛА</span><button class="btn small" id="set-wipe">СТЕРЕТЬ ВСЁ</button></div>
+    <div class="modal-actions"><button class="btn" id="settings-close">▸ ПРИМЕНИТЬ И ЗАКРЫТЬ</button></div>
+  </div>
+</div>
+
+<div id="modal-cart" class="modal is-hidden" role="dialog" aria-label="Корзина">
+  <div class="modal-box panel" data-label="ЗАЯВОЧНАЯ КОРЗИНА">
+    <div id="cart-list" class="cart-list"></div>
+    <div class="cart-total">ИТОГО: <b id="cart-total">0 КР.</b></div>
+    <div class="modal-actions">
+      <button class="btn small" id="cart-clear">ОЧИСТИТЬ</button>
+      <button class="btn" id="cart-order">▸ ОФОРМИТЬ ЗАЯВКУ</button>
+    </div>
+  </div>
+</div>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script src="js/data.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/views.js"></script>
+<script src="js/terminal.js"></script>
+<script src="js/game.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
